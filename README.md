@@ -26,9 +26,9 @@ Join us on this journey to make every commute a secure and stress-free experienc
 - **Styling:** CSS
 - **Version Control:** Git
 - **Repository Hosting:** GitHub
-- **Data Collector** Goggle Apps Script
+- **Data Collection:** Google Apps Script
 - **Mapping Services:** Google Maps API
-- **Deployment:** One
+- **Deployment:** One.com
 
 ## Live Website
 
