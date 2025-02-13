@@ -104,8 +104,28 @@ function initMap() {
     },
   });
 
-  google.maps.event.addListener(marker, "dragend", function () {
-    updateLocationInput(marker.getPosition());
+  // Ask for location permission when user reaches the locationDiv
+  document.getElementById("locationDiv").addEventListener("click", function () {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          const userLocation = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+
+          // Move the marker to the user's location
+          marker.setPosition(userLocation);
+          map.setCenter(userLocation);
+          updateLocationInput(userLocation); // Set the address input to the user's location
+        },
+        function () {
+          alert("Geolocation permission denied. Using default location.");
+        }
+      );
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
   });
 }
 
