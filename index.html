@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#7C41FA" />
+    <link rel="icon" href="source/favicon.ico" type="image/x-icon" />
+    <link rel="manifest" href="./manifest.json" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link rel="stylesheet" href="./mapStyle.css?v=2.1" />
+    <title>Stockholm Safety Map</title>
+  </head>
+  <body onload="initMap()">
+    <div id="map"></div>
+    <!-- Info Container -->
+    <div id="info_Container" style="display: none">
+      <h1>Help others get home safely in 3 simple steps:</h1>
+      <ol>
+        <li>Drag and drop the pin</li>
+        <li>Tell us how it feels</li>
+        <li>Submit</li>
+      </ol>
+      <button id="infoBtn">Got it!</button>
+    </div>
+    <!-- Instructions Container -->
+    <div id="instructions_Container" style="display: none">
+      <h2>Drag and drop the pin</h2>
+      <img src="./source/Pin.gif" alt="Drag and drop instructions GIF" />
+      <button id="instructions_Btn">Got it!</button>
+    </div>
+    <!-- Beginning of Feedback Form -->
+    <form id="feedbackForm">
+      <!--Location Div-->
+      <div id="locationDiv" style="display: none">
+        <button
+          id="backToInstructionsBtn"
+          onclick="backDiv('locationDiv', 'instructions_Container')"
+        >
+          <img src="./source/left_arrow.svg" alt="Back Arrow" />
+        </button>
+        <label for="location"></label>
+        <input type="text" id="location" name="location" required />
+        <button id="locationBtn" type="button">Next</button>
+      </div>
+      <!--Rating Div-->
+      <div id="ratingDiv" style="display: none">
+        <div class="btnsSection">
+          <button
+            id="backBtn"
+            type="button"
+            onclick="backDiv('ratingDiv', 'locationDiv')"
+          >
+            Back to map
+          </button>
+          <span class="pageInfo">Page 1/2</span>
+          <div class="lineBtn">
+            <button class="yellowLineBtn" type="button" disabled></button>
+            <button id="ratingBtn" class="whiteLineBtn" type="button"></button>
+          </div>
+        </div>
+        <div class="safetyRange">
+          <span id="safetyQ">How safe does this area feel?*</span>
+          <div id="valueRange">
+            <span>Very Unsafe</span>
+            <span id="currentValue">5</span>
+            <span>&nbsp;&nbsp;Very Safe&nbsp;&nbsp;</span>
+          </div>
+          <input
+            type="range"
+            id="rating"
+            name="rating"
+            min="0"
+            max="10"
+            value="5"
+            oninput="updateValue(this.value)"
+            required
+          />
+        </div>
+        <div class="time-wrapper">
+          <div class="timeQ-wrapper">
+            <span id="timeQ"
+              >Around what time of the day did it feel like that?</span
+            >
+            <small id="dayTimeCheck">(Check all that apply)</small>
+          </div>
+          <div id="dayFieldset">
+            <label
+              ><input type="checkbox" name="timeOfDay" value="day" />
+              <img src="./source/sun.svg" alt="Sun Icon" />Day</label
+            >
+            <label
+              ><input type="checkbox" name="timeOfDay" value="night" />
+              <img src="./source/moon.svg" alt="Sun Icon" />
+              Night</label
+            >
+          </div>
+        </div>
+        <button id="nextRatingBtn" class="ratingBtnBottom" type="button">
+          Next
+        </button>
+      </div>
+      <!--Final Div-->
+      <div id="finalDiv" style="display: none">
+        <div class="btns2Section">
+          <button
+            id="backBtn"
+            type="button"
+            onclick="backDiv('finalDiv', 'locationDiv')"
+          >
+            Back to map
+          </button>
+          <span class="pageInfo">Page 2/2</span>
+          <div class="lineBtn">
+            <button
+              id="finalBtn"
+              class="whiteLineBtn"
+              type="button"
+              onclick="backDiv('finalDiv', 'ratingDiv')"
+            ></button>
+            <button class="yellowLineBtn" type="button" disabled></button>
+          </div>
+        </div>
+        <div class="reasoning-wrapper">
+          <div class="timeQ-wrapper">
+            <span id="whyQ">Why does it feels this way?</span>
+            <small id="dayTimeCheck">(Check all that apply)</small>
+          </div>
+          <div id="reasoningContainer">
+            <label>
+              <input type="checkbox" name="options" value="Lighting" />Lighting
+            </label>
+            <label>
+              <input type="checkbox" name="options" value="People" />People
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="options"
+                value="Infrastructure"
+              />Infrastructure
+            </label>
+            <label>
+              <input type="checkbox" name="options" value="Vibes" />Vibes
+            </label>
+          </div>
+        </div>
+        <div class="email-container">
+          <label for="comments" id="commentText"
+            >Why does it feels this way?</label
+          >
+          <textarea
+            id="comments"
+            name="comments"
+            rows="4"
+            cols="50"
+            placeholder="Share your thoughts with us"
+          ></textarea>
+          <div class="email-container">
+            <label for="email"></label>
+            <div class="input-wrapper">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                placeholder="example@domain.com * "
+              />
+              <div class="info-icon-container">
+                <span class="info-icon" onclick="togglePopup(event)"
+                  >&#9432;</span
+                >
+              </div>
+              <div class="popup" id="emailPopup">
+                Your email address is essential in helping us prevent fraudulent
+                submissions. We assure you that it will not be used for any
+                marketing purposes.
+              </div>
+            </div>
+          </div>
+          <label class="terms-label">
+            <input type="checkbox" id="terms" required />
+            I accept the
+            <a href="https://yourwayhome.eu/terms-of-use" target="_blank"
+              >Terms
+            </a>
+            and
+            <a href="https://yourwayhome.eu/privacy-policy" target="_blank"
+              >Privacy Policy</a
+            >*
+          </label>
+          <label class="terms-label">
+            <input type="checkbox" id="contact" value="Yes" />I want to be
+            contacted for user testing.
+          </label>
+        </div>
+        <button type="submit" class="submitBtn" onclick="submitForm()">
+          Submit
+        </button>
+      </div>
+    </form>
+    <div id="thanksDiv" style="display: none">
+      <img src="./source/ThankYou.jpg" alt="Thanks Icon" />
+      <h2>Thank you for your contribution to Your Way Home!</h2>
+      <h3>We work hard for a safer city.</h3>
+      <button id="newPinBtn" onclick="location.reload()">Drop a new pin</button>
+    </div>
+    <!-- End of Feedback Form -->
+    <!-- PWA Install Button -->
+    <button id="installButton">Install App</button>
+    <!-- Scripts -->
+    <script src="./stockholmScript.js?v=2.1"></script>
+    <!-- Google Maps API -->
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDu5Z6GY1vNs96Ic5WmTNp_IQv4r9sdRJE&callback=initMap"
+    ></script>
+  </body>
+</html>
