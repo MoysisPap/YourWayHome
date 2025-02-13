@@ -32,7 +32,7 @@ Join us on this journey to make every commute a secure and stress-free experienc
 
 ## Live Website
 
-- **Visit our Website:** <a href="https://yourwayhome.eu/stockholm.html" target="_blank" rel="noopener noreferrer">https://yourwayhome.eu/stockholm.html</a>
+[Visit our Website](https://yourwayhome.eu/stockholm.html)
 
 ## License
 
