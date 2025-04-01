@@ -16,6 +16,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (currentIndex < containers.length - 1) {
       containers[currentIndex].style.display = "none";
       containers[currentIndex + 1].style.display = "flex";
+      // Trigger location request when locationDiv is shown
+      if (currentIndex + 1 === 2) {
+        requestLocation();
+      }
     }
   }
 
@@ -81,63 +85,44 @@ document.addEventListener("DOMContentLoaded", function () {
   initMap();
 });
 
-// Google Maps code
+// Leaflet/OSM code
 let map;
 let marker;
 
 function initMap() {
-  const initialLocation = { lat: 59.33091976142107, lng: 18.060195177256297 };
+  const initialLocation = [59.33091976142107, 18.060195177256297];
   const markerOffset = 0.0021;
 
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: initialLocation,
-    zoom: 16,
-  });
+  map = L.map("map").setView(initialLocation, 16);
 
-  marker = new google.maps.Marker({
-    map: map,
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  }).addTo(map);
+
+  marker = L.marker([initialLocation[0] + markerOffset, initialLocation[1]], {
     draggable: true,
-    animation: google.maps.Animation.DROP,
-    position: {
-      lat: initialLocation.lat + markerOffset,
-      lng: initialLocation.lng,
-    },
-  });
+  }).addTo(map);
 
-  // Ask for location permission when user reaches the locationDiv
-  document.getElementById("locationDiv").addEventListener("click", function () {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          const userLocation = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-
-          // Move the marker to the user's location
-          marker.setPosition(userLocation);
-          map.setCenter(userLocation);
-          updateLocationInput(userLocation); // Set the address input to the user's location
-        },
-        function () {
-          alert("Geolocation permission denied. Using default location.");
-        }
-      );
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
+  marker.on("dragend", function (event) {
+    const markerLatLng = marker.getLatLng();
+    updateLocationInput([markerLatLng.lat, markerLatLng.lng]);
   });
 }
 
 function updateLocationInput(latLng) {
-  const geocoder = new google.maps.Geocoder();
-  geocoder.geocode({ location: latLng }, function (results, status) {
-    if (status === "OK" && results[0]) {
-      document.getElementById("location").value = results[0].formatted_address;
-    } else {
-      console.error("Geocode was not successful: " + status);
-    }
-  });
+  fetch(
+    `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latLng[0]}&lon=${latLng[1]}`
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.display_name) {
+        document.getElementById("location").value = data.display_name;
+      } else {
+        console.error("Reverse geocoding failed.");
+      }
+    })
+    .catch((error) => console.error("Error:", error));
 }
 
 // Function to handle next or previous div transition
@@ -330,3 +315,24 @@ document.addEventListener("click", function (event) {
     popup.classList.remove("show");
   }
 });
+
+function requestLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        const userLocation = [
+          position.coords.latitude,
+          position.coords.longitude,
+        ];
+        marker.setLatLng(userLocation);
+        map.setView(userLocation, 16);
+        updateLocationInput(userLocation);
+      },
+      function () {
+        alert("Geolocation permission denied. Using default location.");
+      }
+    );
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}

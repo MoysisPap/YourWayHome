@@ -15,7 +15,7 @@ Join us on this journey to make every commute a secure and stress-free experienc
 ## Features
 
 - **Responsive Design:** Enjoy a seamless experience across desktop and mobile devices.
-- **Drop a Pin:** Easily drop a pin on Google Maps to rate the safety of any location.
+- **Drop a Pin:** Easily drop a pin on Google Maps (changed to OSM) to rate the safety of any location.
 - **Infrastructure Feedback:** Provide valuable feedback about the infrastructure in your area to help us improve services.
 - **Direct Messaging:** Send us a text message for quick inquiries or support.
 - **Real-Time Data Collection:** Your input helps us enhance our mapping and navigation services.
@@ -27,7 +27,7 @@ Join us on this journey to make every commute a secure and stress-free experienc
 - **Version Control:** Git
 - **Repository Hosting:** GitHub
 - **Data Collection:** Google Apps Script
-- **Mapping Services:** Google Maps API
+- **Mapping Services:** Google Maps API (chnanged to OSM to reduce cost)
 - **Deployment:** One.com
 
 ## Live Website

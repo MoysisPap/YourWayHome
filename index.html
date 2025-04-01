@@ -11,12 +11,15 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <link rel="stylesheet" href="./mapStyle.css?v=2.1" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
     <title>Stockholm Safety Map</title>
   </head>
   <body onload="initMap()">
     <div id="map"></div>
-    <!-- Info Container -->
-    <div id="info_Container" style="display: none">
+    <div id="info_Container" style="display: flex">
       <h1>Help others get home safely in 3 simple steps:</h1>
       <ol>
         <li>Drag and drop the pin</li>
@@ -25,15 +28,12 @@
       </ol>
       <button id="infoBtn">Got it!</button>
     </div>
-    <!-- Instructions Container -->
     <div id="instructions_Container" style="display: none">
       <h2>Drag and drop the pin</h2>
       <img src="./source/Pin.gif" alt="Drag and drop instructions GIF" />
       <button id="instructions_Btn">Got it!</button>
     </div>
-    <!-- Beginning of Feedback Form -->
     <form id="feedbackForm">
-      <!--Location Div-->
       <div id="locationDiv" style="display: none">
         <button
           id="backToInstructionsBtn"
@@ -45,7 +45,6 @@
         <input type="text" id="location" name="location" required />
         <button id="locationBtn" type="button">Next</button>
       </div>
-      <!--Rating Div-->
       <div id="ratingDiv" style="display: none">
         <div class="btnsSection">
           <button
@@ -102,7 +101,6 @@
           Next
         </button>
       </div>
-      <!--Final Div-->
       <div id="finalDiv" style="display: none">
         <div class="btns2Section">
           <button
@@ -207,16 +205,8 @@
       <h3>We work hard for a safer city.</h3>
       <button id="newPinBtn" onclick="location.reload()">Drop a new pin</button>
     </div>
-    <!-- End of Feedback Form -->
-    <!-- PWA Install Button -->
     <button id="installButton">Install App</button>
-    <!-- Scripts -->
     <script src="./stockholmScript.js?v=2.1"></script>
-    <!-- Google Maps API -->
-    <script
-      async
-      defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDu5Z6GY1vNs96Ic5WmTNp_IQv4r9sdRJE&callback=initMap"
-    ></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   </body>
 </html>
