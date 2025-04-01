@@ -88,8 +88,8 @@ button:active {
 #installButton {
   display: block;
   position: fixed;
-  top: 11px;
-  right: 55px;
+  top: 2%;
+  right: 7%;
   padding: 10px 20px;
   background-color: #7c41fa;
   color: white;
@@ -103,10 +103,27 @@ button:active {
   background-color: #442a97;
 }
 
-#info_Container,
+#info_Container {
+  display: flex;
+  width: 70%;
+  position: absolute;
+  justify-content: space-evenly;
+  z-index: 2;
+  border-radius: 30px;
+  top: 40%;
+  height: 310px;
+  background-color: #7c41fa;
+  color: #ffffff;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
 #instructions_Container {
   display: flex;
   width: 70%;
+  gap: 4%;
   position: absolute;
   justify-content: space-evenly;
   z-index: 2;
@@ -705,8 +722,8 @@ input[type="email"] {
   justify-content: center;
   align-items: center;
   position: fixed;
-  top: 7%;
-  left: 2%;
+  top: 80px;
+  left: 9px;
   z-index: 10;
 }
 
@@ -762,12 +779,12 @@ button:active {
 
 @media (min-width: 600px) {
   #info_Container {
-    width: 40%;
+    width: 30%;
     top: 30%;
   }
 
   #instructions_Container {
-    width: 40%;
+    width: 30%;
     top: 30%;
   }
 
@@ -776,15 +793,20 @@ button:active {
     left: 15%;
   }
 
-  #instructions_Container img {
-    width: 35%;
-    align-self: center;
+  #locationDiv {
+    padding-left: 30%;
+    padding-right: 30%;
+    width: 40%;
   }
 
-  #locationDiv {
-    padding-left: 25%;
-    padding-right: 25%;
-    width: 50%;
+  #installButton {
+    top: 2%;
+    right: 2%;
+  }
+
+  #backToInstructionsBtn {
+    top: 11px;
+    left: 4%;
   }
 
   #ratingDiv {
@@ -792,7 +814,7 @@ button:active {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 40vw;
+    width: 35vw;
     height: 100svh;
     padding-left: 5%;
     padding-right: 5%;
@@ -823,7 +845,7 @@ button:active {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 40vw;
+    width: 35vw;
     height: 100svh;
     padding-left: 5%;
     padding-right: 5%;
@@ -863,7 +885,7 @@ button:active {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 40vw;
+    width: 35vw;
     height: 100svh;
     padding-left: 5%;
     padding-right: 5%;
