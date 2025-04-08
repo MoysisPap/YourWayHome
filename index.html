@@ -26,24 +26,36 @@
         <li>Tell us how it feels</li>
         <li>Submit</li>
       </ol>
-      <button id="infoBtn">Got it!</button>
+      <button id="infoBtn" aria-label="Got it! Button">Got it!</button>
     </div>
     <div id="instructions_Container" style="display: none">
       <h2>Drag and drop the pin</h2>
-      <img src="./source/Pin.gif" alt="Drag and drop instructions GIF" />
-      <button id="instructions_Btn">Got it!</button>
+      <img
+        src="./source/Pin.gif"
+        alt="Animated instructions showing drag and drop of a pin"
+      />
+      <button id="instructions_Btn" aria-label="Got it! Button">Got it!</button>
     </div>
     <form id="feedbackForm">
       <div id="locationDiv" style="display: none">
         <button
           id="backToInstructionsBtn"
           onclick="backDiv('locationDiv', 'instructions_Container')"
+          aria-label="Back to instructions"
         >
-          <img src="./source/left_arrow.svg" alt="Back Arrow" />
+          <img src="./source/left_arrow.svg" alt="Back arrow" />
         </button>
-        <label for="location"></label>
-        <input type="text" id="location" name="location" required />
-        <button id="locationBtn" type="button">Next</button>
+        <label for="location" class="visually-hidden">Location</label>
+        <input
+          type="text"
+          id="location"
+          name="location"
+          required
+          aria-describedby="locationHelp"
+        />
+        <button id="locationBtn" type="button" aria-label="Next step">
+          Next
+        </button>
       </div>
       <div id="ratingDiv" style="display: none">
         <div class="btnsSection">
@@ -51,6 +63,7 @@
             id="backBtn"
             type="button"
             onclick="backDiv('ratingDiv', 'locationDiv')"
+            aria-label="Back to map"
           >
             Back to map
           </button>
@@ -76,6 +89,7 @@
             value="5"
             oninput="updateValue(this.value)"
             required
+            aria-label="Rating scale from 0 to 10"
           />
         </div>
         <div class="time-wrapper">
@@ -86,18 +100,23 @@
             <small id="dayTimeCheck">(Check all that apply)</small>
           </div>
           <div id="dayFieldset">
-            <label
-              ><input type="checkbox" name="timeOfDay" value="day" />
-              <img src="./source/sun.svg" alt="Sun Icon" />Day</label
-            >
-            <label
-              ><input type="checkbox" name="timeOfDay" value="night" />
-              <img src="./source/moon.svg" alt="Sun Icon" />
-              Night</label
-            >
+            <label>
+              <input type="checkbox" name="timeOfDay" value="day" />
+              <img src="./source/sun.svg" alt="Sun icon" />Day
+            </label>
+            <label>
+              <input type="checkbox" name="timeOfDay" value="night" />
+              <img src="./source/moon.svg" alt="Moon icon" />
+              Night
+            </label>
           </div>
         </div>
-        <button id="nextRatingBtn" class="ratingBtnBottom" type="button">
+        <button
+          id="nextRatingBtn"
+          class="ratingBtnBottom"
+          type="button"
+          aria-label="Next step"
+        >
           Next
         </button>
       </div>
@@ -107,6 +126,7 @@
             id="backBtn"
             type="button"
             onclick="backDiv('finalDiv', 'locationDiv')"
+            aria-label="Back to map"
           >
             Back to map
           </button>
@@ -123,7 +143,7 @@
         </div>
         <div class="reasoning-wrapper">
           <div class="timeQ-wrapper">
-            <span id="whyQ">Why does it feels this way?</span>
+            <span id="whyQ">Why does it feel this way?</span>
             <small id="dayTimeCheck">(Check all that apply)</small>
           </div>
           <div id="reasoningContainer">
@@ -146,8 +166,8 @@
           </div>
         </div>
         <div class="email-container">
-          <label for="comments" id="commentText"
-            >Why does it feels this way?</label
+          <label for="comments" class="visually-hidden"
+            >Why does it feel this way?</label
           >
           <textarea
             id="comments"
@@ -155,9 +175,10 @@
             rows="4"
             cols="50"
             placeholder="Share your thoughts with us"
+            aria-label="Comments section"
           ></textarea>
           <div class="email-container">
-            <label for="email"></label>
+            <label for="email" class="visually-hidden">Email</label>
             <div class="input-wrapper">
               <input
                 type="email"
@@ -165,9 +186,13 @@
                 name="email"
                 required
                 placeholder="example@domain.com * "
+                aria-label="Email input"
               />
               <div class="info-icon-container">
-                <span class="info-icon" onclick="togglePopup(event)"
+                <span
+                  class="info-icon"
+                  onclick="togglePopup(event)"
+                  aria-label="Info icon"
                   >&#9432;</span
                 >
               </div>
@@ -182,8 +207,8 @@
             <input type="checkbox" id="terms" required />
             I accept the
             <a href="https://yourwayhome.eu/terms-of-use" target="_blank"
-              >Terms
-            </a>
+              >Terms</a
+            >
             and
             <a href="https://yourwayhome.eu/privacy-policy" target="_blank"
               >Privacy Policy</a
@@ -194,18 +219,24 @@
             contacted for user testing.
           </label>
         </div>
-        <button type="submit" class="submitBtn" onclick="submitForm()">
+        <button type="submit" class="submitBtn" aria-label="Submit form">
           Submit
         </button>
       </div>
     </form>
     <div id="thanksDiv" style="display: none">
-      <img src="./source/ThankYou.jpg" alt="Thanks Icon" />
+      <img src="./source/ThankYou.jpg" alt="Thank you message" />
       <h2>Thank you for your contribution to Your Way Home!</h2>
       <h3>We work hard for a safer city.</h3>
-      <button id="newPinBtn" onclick="location.reload()">Drop a new pin</button>
+      <button
+        id="newPinBtn"
+        onclick="location.reload()"
+        aria-label="Drop a new pin"
+      >
+        Drop a new pin
+      </button>
     </div>
-    <button id="installButton">Install App</button>
+    <button id="installButton" aria-label="Install app">Install App</button>
     <script src="./stockholmScript.js?v=2.1"></script>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   </body>
